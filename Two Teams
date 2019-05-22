@@ -1,0 +1,87 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define f(i,a,b) for(ll i=a;i<b;i++)
+#define mod 1000000007
+#define fi first
+#define se second
+#define pa pair
+#define mp make_pair
+#define pb push_back
+#define ve vector<ll>
+#define vep vector< pa<ll ,ll> >
+using namespace std;
+void solve()
+{
+    ll n,k;
+    cin>>n>>k;
+    vep v;
+    f(i,0,n)
+    { ll xs;
+        cin>>xs;;
+        v.pb(mp(xs,i));
+    }
+    sort(v.begin(),v.end());
+    queue<ll> q;
+    for(ll i=n-1;i>=0;i--)
+    q.push(v[i].se);
+    set<ll> s;
+    f(i,0,n)
+    s.insert(i);
+    ll w=0;
+    ll ans[n];
+    while(!s.empty())
+    {
+        while(!s.count(q.front()))
+            q.pop();
+        ll p=q.front();
+        q.pop();
+        set<ll>:: iterator it=s.find(p);
+        //cout<<*it<<"\n";
+        it--;
+        ll qk=k;
+        ve a;
+        ll fg=1;
+        while(qk>0&&it!=s.end())
+        { //cout<<*it;
+            a.pb(*it);
+            fg++;
+            qk--;
+            it--;
+        }
+            it=s.find(p);
+            a.pb(*it);
+            it++;
+            ll qw=k;
+            while(qw>0&&it!=s.end())
+        {   //cout<<1;
+            fg++;
+            a.pb(*it);
+            qw--;
+            it++;
+        }
+        f(i,0,fg)
+        {
+          s.erase(a[i]);
+          //cout<<a[i]<<" ";
+          ans[a[i]]=1+w;
+        }//cout<<"\n";
+     w^=1;
+    }
+    f(i,0,n)
+  cout<<ans[i];
+  cout<<"\n";
+}
+int main()
+{
+    ios::sync_with_stdio(true);
+    cin.tie(0);
+    cout.tie(0);
+    ll t=1;
+    while(t--)
+    {
+
+        solve();
+    }
+return 0;
+}
