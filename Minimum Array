@@ -1,0 +1,54 @@
+//Lower bound concept is very nice
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define f(i,a,b) for(ll i=a;i<b;i++)
+#define mod 1000000007
+#define fi first
+#define se second
+#define pa pair
+#define mp make_pair
+#define pb push_back
+#define ve vector<ll>
+#define vep vector< pa<ll ,ll> >
+#define c(t) cout<<t<<"\n"
+using namespace std;
+void solve()
+{  ll n;
+cin>>n;
+ll a[n],b[n];
+multiset<ll>s;
+f(i,0,n)
+cin>>a[i];
+f(i,0,n)
+{
+    cin>>b[i];
+    s.insert(b[i]);
+}
+f(i,0,n)
+{
+    ll x=n-a[i];
+    multiset <ll>::iterator p;
+    p=s.lower_bound(x);
+    if(p==s.end())
+        p=s.begin();
+    ll z=(*p+a[i])%n;
+    cout<<z<<" ";
+    s.erase(p);
+}
+cout<<"\n";
+}
+int main()
+{
+    ios::sync_with_stdio(true);
+    cin.tie(0);
+    cout.tie(0);
+    ll t=1;
+    //cin>>t;
+    while(t--)
+    {
+
+        solve();
+    }
+return 0;
+}
