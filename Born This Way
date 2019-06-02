@@ -1,0 +1,64 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define f(i,a,b) for(ll i=a;i<b;i++)
+#define mod 1000000007
+#define fi first
+#define se second
+#define pa pair
+#define mp make_pair
+#define pb push_back
+#define ve vector<ll>
+#define vep vector< pa<ll ,ll> >
+#define c(t) cout<<t<<"\n"
+using namespace std;
+void solve()
+{  ll n,m,ta,tb,k;
+cin>>n>>m>>ta>>tb>>k;
+ve a,b;
+f(i,0,n)
+{ll h;
+    cin>>h;
+  a.pb(h+ta);
+}
+f(i,0,m)
+{ll h;
+    cin>>h;
+  b.pb(h);
+}
+ll ans=0,nb=0;
+if(k>=n||k>=m)
+    c(-1);
+else{
+f(i,0,k+1)
+{
+    //ve ::iterator p;
+    auto p=lower_bound(b.begin(),b.end(),a[i])-b.begin();
+    p+=k-i;
+    if(p>=m)
+       {c(-1);
+       nb=-1;
+        break;
+       }
+    else
+        ans=max(ans,b[p]+tb);
+
+}
+
+if(nb==0)
+    c(ans);
+}}
+int main()
+{
+    ios::sync_with_stdio(true);
+    cin.tie(0);
+    cout.tie(0);
+    ll t=1;
+    //cin>>t;
+    while(t--)
+    {
+
+        solve();
+    }
+return 0;
+}
