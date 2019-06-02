@@ -1,0 +1,96 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define f(i,a,b) for(ll i=a;i<b;i++)
+#define mod 1000000007
+#define inf 1000000000
+#define fi first
+#define se second
+#define pa pair
+#define mp make_pair
+#define pb push_back
+#define ve vector<ll>
+#define vep vector< pa<ll ,ll> >
+#define c(t) cout<<t<<"\n"
+typedef pair<ll, ll> pi;
+using namespace std;
+const ll INF = 1000000000000;
+ve adj[3001];
+map<pa<ll,pa<ll,ll> >,ll> mw;
+map<pa<ll,ll>,ll> p;
+queue <pa<ll,ll> > q;
+ll fe=0,fl;
+bfs(ll s,ll n)
+{
+    q.push(mp(s,s));
+    while(!q.empty()&&fe==0)
+    {
+        pa<ll,ll> f=q.front();
+        q.pop();
+        f(i,0,adj[f.se].size())
+        {if(mw[{f.fi,{f.se,adj[f.se][i]}}]==0&&p[{adj[f.se][i],f.se}]==0)
+            {q.push(mp(f.se,adj[f.se][i]));
+            p[{adj[f.se][i],f.se}]=f.fi;
+            //cout<<f.fi<<" "<<f.se<<" "<<adj[f.se][i]<<"\n";
+             if(adj[f.se][i]==n)
+             {   fl=f.se;
+                 fe=-1;
+               break;
+             }
+            }
+
+        }
+    }
+}
+void solve()
+{  ll n,m,k;
+   cin>>n>>m>>k;
+   f(i,0,m)
+   {
+       ll a,b;
+       cin>>a>>b;
+       adj[a].pb(b);
+       adj[b].pb(a);
+   }
+   f(i,0,k)
+   {
+       ll ak,bk,ck;
+       cin>>ak>>bk>>ck;
+       mw[{ak,{bk,ck}}]=1;
+   }
+   bfs(1,n);
+   if(fe==0)
+    c(-1);
+   else
+   {   ve v;
+   ll temp=n;
+   v.pb(n);
+   v.pb(fl);
+       while(fl!=1)
+       {
+           ll fg=p[{temp,fl}];
+           v.pb(fg);
+           temp=fl;
+           fl=fg;
+       }
+       reverse(v.begin(),v.end());
+       c(v.size()-1);
+       f(i,0,v.size())
+       cout<< v[i]<<" ";
+   }
+
+}
+int main()
+{
+    ios::sync_with_stdio(true);
+    cin.tie(0);
+    cout.tie(0);
+    ll t=1;
+    //cin>>t;
+    while(t--)
+    {
+
+        solve();
+    }
+return 0;
+}
