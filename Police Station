@@ -1,0 +1,83 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define f(i,a,b) for(ll i=a;i<b;i++)
+#define mod 1000000007
+#define fi first
+#define se second
+#define pa pair<ll,ll>
+#define mp make_pair
+#define pb push_back
+#define ve vector<ll>
+#define vep vector< pa >
+#define c(t) cout<<t<<"\n"
+using namespace std;
+ve adj[300001];
+ll vis[300001];
+void solve()
+{  ll n,k,d;
+    cin>>n>>k>>d;
+    queue<ll>q;
+    ll a[k];
+    map<ll,ll>p;
+    f(i,0,k)
+    {cin>>a[i];
+    p[a[i]]=a[i];
+    q.push(a[i]);
+    vis[a[i]]=1;
+    }
+    map<pa,ll> e;
+    f(i,0,n-1)
+    {
+        ll x,y;
+        cin>>x>>y;
+        e[{x,y}]=i+1;
+        adj[x].pb(y);
+        adj[y].pb(x);
+    }
+    while(!q.empty())
+    {
+        ll f=q.front();
+        q.pop();
+        f(i,0,adj[f].size())
+        {
+            if(vis[adj[f][i]]==0)
+             {
+                 p[adj[f][i]]=p[f];
+                 vis[adj[f][i]]=1;
+                 q.push(adj[f][i]);
+             }
+
+        }
+    }
+    ve df;
+    map<pa,ll> ::iterator itr=e.begin();
+    while(itr!=e.end())
+    {
+        pa pc=itr->fi;
+        ll fr=pc.fi,ba=pc.se;
+        if(p[fr]!=p[ba])
+            {
+             df.pb(itr->se);
+            }
+        itr++;
+    }
+    c(df.size());
+    f(i,0,df.size())
+    cout<<df[i]<<" ";
+}
+int main()
+{
+    ios::sync_with_stdio(true);
+    cin.tie(0);
+    cout.tie(0);
+    ll t=1;
+    memset(vis,0,sizeof(vis));
+    //cin>>t;
+    while(t--)
+    {
+
+        solve();
+    }
+return 0;
+}
